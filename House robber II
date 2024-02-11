@@ -1,0 +1,29 @@
+class Solution {
+    public int rob(int[] nums) {
+        int n = nums.length;
+        if(n == 1) return nums[0];
+
+        int[] temp1 = new int[n-1];
+        int[] temp2 = new int[n-1];
+        for(int i = 0;i<n-1;i++) temp1[i] = nums[i];
+        for(int i = 1;i<n;i++) temp2[i-1] = nums[i];
+        return Math.max(robHouse(temp1),robHouse(temp2));
+
+        
+    }
+    public int robHouse(int[] nums) {
+        int n = nums.length;
+        int prev1 = nums[0],prev2 = 0;
+        for(int i = 1;i<n;i++){
+            int pick = nums[i];
+            if(i>1)
+            pick += prev2;
+            int notPick = 0+prev1;
+
+            prev2 = prev1;
+            prev1 = Math.max(pick,notPick);
+        }
+        return prev1;
+        
+    }
+}
